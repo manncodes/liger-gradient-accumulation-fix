@@ -1,0 +1,12 @@
+# Core requirements for testing the fix
+torch>=2.1.2
+liger-kernel>=0.6.0
+
+# Optional: For running 360-LLaMA-Factory tests  
+# transformers>=4.40.0
+# datasets>=2.0.0
+# accelerate>=0.20.0
+
+# Development/Testing
+pytest>=7.0.0
+numpy>=1.21.0
