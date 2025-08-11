@@ -33,9 +33,9 @@ python tests/test_simple_fix.py
 ```
 **Expected output:**
 ```
-🎉 SUCCESS!
-✓ Original Liger Kernel works perfectly with gradient accumulation
-✓ The issue was just the overly conservative check in 360-LLaMA-Factory
+ SUCCESS!
+ Original Liger Kernel works perfectly with gradient accumulation
+ The issue was just the overly conservative check in 360-LLaMA-Factory
 ```
 
 ### Full Mathematical Validation
@@ -62,13 +62,13 @@ python -m pytest tests/ -v
 
 ## Test Results Interpretation
 
-### ✅ PASS Indicators
+###  PASS Indicators
 - Loss difference < 1e-5
 - Gradient difference < 1e-4  
 - Training stability maintained
 - Memory efficiency achieved
 
-### ❌ FAIL Indicators  
+###  FAIL Indicators  
 - Mathematical differences detected
 - Training instability
 - Memory issues

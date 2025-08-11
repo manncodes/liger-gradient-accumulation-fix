@@ -61,7 +61,7 @@ class SimpleLanguageModel(nn.Module):
 def train_with_liger_and_gradient_accumulation():
     """Demonstrate training with Liger Kernel and gradient accumulation."""
     
-    print("🚀 LIGER KERNEL + GRADIENT ACCUMULATION DEMO")
+    print(" LIGER KERNEL + GRADIENT ACCUMULATION DEMO")
     print("=" * 60)
     
     # Configuration  
@@ -77,7 +77,7 @@ def train_with_liger_and_gradient_accumulation():
     
     device = "cuda" if torch.cuda.is_available() else "cpu"
     
-    print(f"📊 Configuration:")
+    print(f" Configuration:")
     print(f"   Device: {device}")
     print(f"   Vocab size: {vocab_size:,}")
     print(f"   Model size: {embed_dim} embed, {hidden_dim} hidden")
@@ -88,7 +88,7 @@ def train_with_liger_and_gradient_accumulation():
     print(f"   Training steps: {num_training_steps}")
     
     # Create model
-    print(f"\n🔧 Creating model...")
+    print(f"\n Creating model...")
     model = SimpleLanguageModel(vocab_size, embed_dim, hidden_dim).to(device)
     
     # Count parameters
@@ -98,7 +98,7 @@ def train_with_liger_and_gradient_accumulation():
     print(f"   Trainable parameters: {trainable_params:,}")
     
     # Create dataset and dataloader
-    print(f"\n📚 Creating dataset...")
+    print(f"\n Creating dataset...")
     dataset = TextDataset(vocab_size, seq_len, num_samples=500)
     dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True, drop_last=True)
     
@@ -106,14 +106,14 @@ def train_with_liger_and_gradient_accumulation():
     optimizer = optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=0.01)
     
     # Create loss function with Liger Kernel
-    print(f"\n⚡ Setting up Liger Kernel...")
+    print(f"\n Setting up Liger Kernel...")
     from liger_kernel.transformers.fused_linear_cross_entropy import LigerFusedLinearCrossEntropyLoss
     
     criterion = LigerFusedLinearCrossEntropyLoss(
         reduction="mean",
         ignore_index=-100
     )
-    print("   ✅ Liger fused linear cross entropy enabled")
+    print("    Liger fused linear cross entropy enabled")
     
     # Training metrics
     losses = []
@@ -121,7 +121,7 @@ def train_with_liger_and_gradient_accumulation():
     memory_stats = []
     gradient_norms = []
     
-    print(f"\n🏃 Starting training...")
+    print(f"\n Starting training...")
     print(f"   Using gradient accumulation every {gradient_accumulation_steps} steps")
     
     model.train()
@@ -214,7 +214,7 @@ def train_with_liger_and_gradient_accumulation():
     total_time = time.time() - start_time
     
     # Final statistics
-    print(f"\n📈 Training completed!")
+    print(f"\n Training completed!")
     print(f"   Total time: {total_time:.2f}s")
     print(f"   Average step time: {sum(step_times)/len(step_times):.2f}s")
     print(f"   Final loss: {losses[-1]:.4f}")
@@ -230,20 +230,20 @@ def train_with_liger_and_gradient_accumulation():
     loss_std = torch.std(torch.tensor(losses[-20:])).item()
     grad_std = torch.std(torch.tensor(gradient_norms[-20:])).item()
     
-    print(f"\n🔍 Stability metrics (last 20 steps):")
+    print(f"\n Stability metrics (last 20 steps):")
     print(f"   Loss std deviation: {loss_std:.6f}")
     print(f"   Gradient norm std deviation: {grad_std:.6f}")
     
     stable = loss_std < 0.1 and grad_std < 1.0
-    print(f"   Training stability: {'✅ STABLE' if stable else '⚠️ UNSTABLE'}")
+    print(f"   Training stability: {' STABLE' if stable else ' UNSTABLE'}")
     
     # Key benefits achieved
-    print(f"\n✨ Benefits achieved:")
-    print(f"   ✅ Memory efficient training with large vocabulary ({vocab_size:,} tokens)")
-    print(f"   ✅ Gradient accumulation working seamlessly")
-    print(f"   ✅ No intermediate logits materialization")
-    print(f"   ✅ Stable training dynamics")
-    print(f"   ✅ Performance maintained")
+    print(f"\n Benefits achieved:")
+    print(f"    Memory efficient training with large vocabulary ({vocab_size:,} tokens)")
+    print(f"    Gradient accumulation working seamlessly")
+    print(f"    No intermediate logits materialization")
+    print(f"    Stable training dynamics")
+    print(f"    Performance maintained")
     
     return {
         "losses": losses,
@@ -257,7 +257,7 @@ def train_with_liger_and_gradient_accumulation():
 def demonstrate_memory_savings():
     """Show memory savings compared to standard approach."""
     
-    print(f"\n💾 MEMORY EFFICIENCY DEMONSTRATION")
+    print(f"\n MEMORY EFFICIENCY DEMONSTRATION")
     print("=" * 60)
     
     vocab_size = 50000  # Large vocabulary
@@ -267,10 +267,10 @@ def demonstrate_memory_savings():
     device = "cuda" if torch.cuda.is_available() else "cpu"
     
     if device == "cpu":
-        print("⚠️  CUDA not available, skipping memory demonstration")
+        print("  CUDA not available, skipping memory demonstration")
         return
     
-    print(f"📊 Test configuration:")
+    print(f" Test configuration:")
     print(f"   Large vocabulary: {vocab_size:,} tokens")
     print(f"   Hidden dimension: {hidden_dim}")
     print(f"   Batch size: {batch_size}")
@@ -285,7 +285,7 @@ def demonstrate_memory_savings():
     targets = torch.randint(0, vocab_size, (batch_size, seq_len), device=device)
     
     # Test 1: Standard PyTorch approach (materializes logits)
-    print(f"\n📏 Standard PyTorch approach:")
+    print(f"\n Standard PyTorch approach:")
     torch.cuda.empty_cache()
     torch.cuda.reset_peak_memory_stats()
     
@@ -307,7 +307,7 @@ def demonstrate_memory_savings():
     print(f"   Logits tensor size: {batch_size * seq_len * vocab_size * 4 / (1024**3):.3f} GB")
     
     # Test 2: Liger Kernel approach (no logits materialization)
-    print(f"\n⚡ Liger Kernel approach:")
+    print(f"\n Liger Kernel approach:")
     torch.cuda.empty_cache()
     torch.cuda.reset_peak_memory_stats()
     linear.zero_grad()
@@ -338,18 +338,18 @@ def demonstrate_memory_savings():
     memory_savings = memory_used_standard - memory_used_liger
     savings_percent = (memory_savings / memory_used_standard) * 100
     
-    print(f"\n💰 Memory savings:")
+    print(f"\n Memory savings:")
     print(f"   Absolute: {memory_savings:.3f} GB")
     print(f"   Relative: {savings_percent:.1f}%")
-    print(f"   ✅ No logits tensor materialized!")
+    print(f"    No logits tensor materialized!")
     
     if savings_percent > 20:
-        print(f"   🎉 Significant memory savings achieved!")
+        print(f"    Significant memory savings achieved!")
     
     return memory_savings
 
 if __name__ == "__main__":
-    print("🎯 LIGER KERNEL GRADIENT ACCUMULATION - END-TO-END DEMO")
+    print(" LIGER KERNEL GRADIENT ACCUMULATION - END-TO-END DEMO")
     print("=" * 80)
     print("This demonstration shows Liger Kernel working seamlessly with")
     print("gradient accumulation, providing memory efficiency and performance.")
@@ -363,25 +363,25 @@ if __name__ == "__main__":
         memory_savings = demonstrate_memory_savings()
         
         # Final summary
-        print(f"\n🎉 DEMONSTRATION COMPLETE!")
+        print(f"\n DEMONSTRATION COMPLETE!")
         print("=" * 80)
-        print("✅ Liger Kernel works perfectly with gradient accumulation")
-        print("✅ Memory efficiency maintained")
-        print("✅ Training stability confirmed")  
-        print("✅ No performance degradation")
-        print("✅ Easy to use - just remove the restrictive check!")
+        print(" Liger Kernel works perfectly with gradient accumulation")
+        print(" Memory efficiency maintained")
+        print(" Training stability confirmed")  
+        print(" No performance degradation")
+        print(" Easy to use - just remove the restrictive check!")
         
         if training_results["stable"]:
             print("\n🏆 The fix is ready for production use!")
         else:
-            print("\n⚠️ Some instability detected - may need further tuning")
+            print("\n Some instability detected - may need further tuning")
             
         print(f"\nTo apply this fix:")
         print(f"1. Apply the patch: git apply 360_llamafactory_gradient_accumulation_fix.patch") 
-        print(f"2. Enjoy Liger Kernel benefits with gradient accumulation! 🚀")
+        print(f"2. Enjoy Liger Kernel benefits with gradient accumulation! ")
         
     except Exception as e:
-        print(f"\n❌ Demo failed: {e}")
+        print(f"\n Demo failed: {e}")
         import traceback
         traceback.print_exc()
         sys.exit(1)

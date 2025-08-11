@@ -224,7 +224,7 @@ def test_gradient_accumulation_correctness():
         print("  - Bias gradients are mathematically equivalent")
         print("  - Both automatic and manual accumulation work")
     else:
-        print("✗ Issues detected in gradient accumulation")
+        print(" Issues detected in gradient accumulation")
         if not loss_ok:
             print("  - Loss computation differs from reference")
         if not weight_grad_ok:
@@ -323,17 +323,17 @@ if __name__ == "__main__":
         print("="*80)
         
         if correctness_passed and cycles_passed:
-            print("🎉 ALL TESTS PASSED!")
+            print(" ALL TESTS PASSED!")
             print("✓ Gradient accumulation patch is working correctly")
             print("✓ Mathematical equivalence confirmed")
             print("✓ Multi-cycle stability confirmed")
             print("\nThe patch is ready for production use!")
         else:
-            print("❌ SOME TESTS FAILED")
+            print(" SOME TESTS FAILED")
             if not correctness_passed:
-                print("✗ Correctness test failed")
+                print(" Correctness test failed")
             if not cycles_passed:
-                print("✗ Multiple cycles test failed")
+                print(" Multiple cycles test failed")
             print("\nPatch needs further investigation.")
         
     except Exception as e:

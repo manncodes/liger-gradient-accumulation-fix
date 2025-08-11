@@ -383,8 +383,8 @@ def run_stability_comparison():
         mem_reduction_8 = (1 - liger_8_metrics['peak_memory_gb'] / baseline_metrics['peak_memory_gb']) * 100
         
         print(f"\nMemory reduction:")
-        print(f"  4 steps: {mem_reduction_4:.1f}% {'✓' if mem_reduction_4 > 0 else '✗'}")
-        print(f"  8 steps: {mem_reduction_8:.1f}% {'✓' if mem_reduction_8 > 0 else '✗'}")
+        print(f"  4 steps: {mem_reduction_4:.1f}% {'✓' if mem_reduction_4 > 0 else ''}")
+        print(f"  8 steps: {mem_reduction_8:.1f}% {'✓' if mem_reduction_8 > 0 else ''}")
     
     # Overall verdict
     print("\n" + "="*80)

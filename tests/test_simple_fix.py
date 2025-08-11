@@ -216,9 +216,9 @@ def compare_with_baseline():
     bias_grad_ok = bias_grad_diff < 1e-4
     
     print(f"\nValidation:")
-    print(f"  Loss match: {'✓ PASS' if loss_ok else '✗ FAIL'}")
-    print(f"  Weight grad match: {'✓ PASS' if weight_grad_ok else '✗ FAIL'}")
-    print(f"  Bias grad match: {'✓ PASS' if bias_grad_ok else '✗ FAIL'}")
+    print(f"  Loss match: {'✓ PASS' if loss_ok else ' FAIL'}")
+    print(f"  Weight grad match: {'✓ PASS' if weight_grad_ok else ' FAIL'}")
+    print(f"  Bias grad match: {'✓ PASS' if bias_grad_ok else ' FAIL'}")
     
     all_ok = loss_ok and weight_grad_ok and bias_grad_ok
     
@@ -226,7 +226,7 @@ def compare_with_baseline():
         print("\n✓ Liger Kernel produces identical results to PyTorch baseline!")
         print("✓ Gradient accumulation works correctly with original Liger!")
     else:
-        print("\n✗ Differences detected between Liger and baseline.")
+        print("\n Differences detected between Liger and baseline.")
     
     return all_ok
 
@@ -246,13 +246,13 @@ if __name__ == "__main__":
         print("="*80)
         
         if comparison_passed:
-            print("🎉 SUCCESS!")
+            print(" SUCCESS!")
             print("✓ Original Liger Kernel works perfectly with gradient accumulation")
             print("✓ The issue was just the overly conservative check in 360-LLaMA-Factory")
             print("✓ Simple fix: Remove the restriction that disables Liger during gradient accumulation")
             print("\nThe fix is much simpler than we thought!")
         else:
-            print("❌ Issues detected in comparison")
+            print(" Issues detected in comparison")
         
     except Exception as e:
         print(f"\nTest failed: {e}")
